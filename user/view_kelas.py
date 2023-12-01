@@ -37,6 +37,7 @@ class index(View):
             context["enroll"] = enroll[0]
             context['history'] = enroll.first() if enroll.exists() else None
             context["pelajaran"] = str(lesson.filter(isdone=True).count()) + " / " + str(Pelajaran.objects.filter(kelas=kelas).count())
+            context['latihan']      = UserLatihan.objects.filter(kelas=kelas, user=request.user)
             return render(request, 'user/kelas/koridor.html', context)
 
     def post(self, request, slug):
@@ -157,6 +158,7 @@ def soal_kelas(request, slug):
     kelas = Kelas.objects.get(slug=slug)
     latihan = UserLatihan.objects.filter(user=request.user, kelas=kelas, is_finish=False, is_last=True)
     latih = UserQuestion.objects.filter(latihan=latihan.first())
+    course = UserCourse.objects.filter(kelas=kelas, user=request.user)
     if not latihan.exists():
         question = Questions.objects.filter(kelas=kelas).order_by("?")
         latih = UserLatihan.objects.create(user=request.user, is_last=True,countdownNow='00:30:00', countdown='00:30:00', kelas=kelas, is_finish=False)
@@ -174,6 +176,7 @@ def soal_kelas(request, slug):
                 l.save()
         benar = benar/3
         latihan.update(is_finish=True, nilai=benar)
+        course.update(finish=True)
         return redirect("user:koridor_soal_kelas", slug=slug)
     context['latih'] = latih
     return render(request, 'user/kelas/soal.html', context)
