@@ -1,11 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    admin
-</body>
-</html>
+{% extends 'owner/base.html' %}
+{% load static %}
+{% block head %}
+{% endblock head %}
+{% block css %}{% endblock css %}
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@4.2.7/build/index.umd.min.js"></script>
+<script>
+    fetch('https://unpkg.com/us-atlas/states-10m.json').then((r) => r.json()).then((us) => {
+  const nation = ChartGeo.topojson.feature(us, us.objects.nation).features[0];
+  const states = ChartGeo.topojson.feature(us, us.objects.states).features;
+
+  const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
+    type: 'choropleth',
+    data: {
+      labels: states.map((d) => d.properties.name),
+      datasets: [{
+        label: 'States',
+        outline: nation,
+        data: states.map((d) => ({feature: d, value: Math.random() * 10})),
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        },
+      },
+      scales: {
+        projection: {
+          axis: 'x',
+          projection: 'albersUsa'  
+        },
+        color: {
+          axis: 'x',
+          quantize: 5,
+          legend: {
+            position: 'bottom-right',
+            align: 'bottom'
+          },
+        }
+      },
+    }
+  });
+});
+</script>
+{% endblock script %}
