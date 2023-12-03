@@ -94,9 +94,10 @@
                   <div class="w-100 h-100">
                     <canvas id="PieChart"></canvas>
                   </div>
-                  <div class="text-center">
-                    <h3 style="margin-top: -140px;">74/26</h3>
-                  </div>
+                </div>
+                <div class="p-2 bg-white rounded-3 shadow-sm" style="height: 300px;">
+                  <h3>Overall</h3>
+                  <canvas id="Pendapatan" class="w-100 h-100"></canvas>
                 </div>
                 <div class="p-2 bg-white rounded-3 shadow-sm">
                   <div class="p-2 d-flex justify-content-between">
@@ -237,10 +238,10 @@
 <script>
   // Sample data
   const dataPie = {
-    labels: ['Kuota', 'Peserta'],
+    labels: ['Regular', 'Semi-Private','Private'],
     datasets: [{
-        data: [25, 75], // Adjust values as needed
-        backgroundColor: ['#3498db', '#e74c3c'],
+        data: [79, 26, 42],
+        backgroundColor: ['#3498db', '#e74c3c', '#3399ff'],
         hoverOffset: 4,
     }],
   };
@@ -252,7 +253,7 @@
       options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '80%', // Adjust the cutout size to create a donut chart
+          cutout: '50%', // Adjust the cutout size to create a donut chart
           plugins: {
               legend: {
                   display: true,
@@ -275,5 +276,45 @@
   ctxpie.font = '18px Arial';
   ctxpie.fillStyle = '#333';
   ctxpie.fillText(centerText, centerX, centerY);
+</script>
+<script>
+  // Sample data for pendapatan every month
+  const dataBar = {
+      labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+      datasets: [
+          {
+              label: 'Pendapatan',
+              backgroundColor: 'rgba(52, 152, 219, 0.8)',
+              data: [1000, 700, 1200, 900, 1500, 1100, 1300],
+          },
+      ],
+  };
+
+  // Chart configuration
+  const configBar = {
+            type: 'bar',
+            data: dataBar,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: true, // Hide x-axis
+                    },
+                    y: {
+                        display: false, // Hide y-axis
+                    },
+                },
+                plugins: {
+                    legend: {
+                        display: false, // Hide the legend
+                    },
+                },
+            },
+        };
+
+  // Create the chart
+  const ctxbar = document.getElementById('Pendapatan').getContext('2d');
+  const Pendapatan = new Chart(ctxbar, configBar);
 </script>
 {% endblock script %}
