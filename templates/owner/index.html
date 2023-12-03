@@ -1,61 +1,279 @@
 {% extends 'owner/base.html' %}
 {% load static %}
 {% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
 {% endblock head %}
 {% block css %}{% endblock css %}
 {% block content %}
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <canvas id="canvas"></canvas>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="m-2 p-3 bg-white rounded-2 shadow-sm " style="width: 100%; height: 100px;">
+                    <div class="d-flex justify-content-between">
+                      <div class="align-self-center">
+                        <h4 class="fw-semibold">Pendapatan</h4>
+                        <h6 class="text-success">Rp. 3.200.000</h6>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="fa-solid fa-arrow-up-long text-success"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="m-2 p-3 bg-white rounded-2 shadow-sm " style="width: 100%; height: 100px;">
+                    <div class="d-flex justify-content-between">
+                      <div class="align-self-center">
+                        <h4 class="fw-semibold">Siswa Aktif</h4>
+                        <h6 class="text-success">320 Orang</h6>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="fa-solid fa-arrow-up-long text-success"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="m-2 p-3 bg-white rounded-2 shadow-sm " style="width: 100%; height: 100px;">
+                    <div class="d-flex justify-content-between">
+                      <div class="align-self-center">
+                        <h4 class="fw-semibold">Kunjungan</h4>
+                        <h6 class="text-danger">532.124</h6>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="fa-solid fa-arrow-down-long text-danger"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="m-2 p-2 rounded-3 bg-white shadow-sm col-md-12">
+                <canvas id="myChart" style="height: 400px;"></canvas>
+              </div>
+              <div class="m-2 p-2 rounded-3 bg-white shadow-sm col-md-12">
+                <table class="table" id="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nama</th>
+                      <th scope="col">Kelas</th>
+                      <th scope="col">Wilayah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex flex-column gap-2 m-2">
+                <div class="p-2 bg-white rounded-3 shadow-sm" style="height: 300px;">
+                  <div class="w-100 h-100">
+                    <canvas id="PieChart"></canvas>
+                  </div>
+                  <div class="text-center">
+                    <h3 style="margin-top: -140px;">74/26</h3>
+                  </div>
+                </div>
+                <div class="p-2 bg-white rounded-3 shadow-sm">
+                  <div class="p-2 d-flex justify-content-between">
+                    <h4>Performance</h4>
+                    <a href="#" class="btn btn-sm align-self-center">Details</a>
+                  </div>
+                  <div class="d-flex flex-column gap-3">
+                    <div class="d-flex gap-2">
+                      <img src="https://www.venmond.com/demo/vendroid/img/avatar/big.jpg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" alt="">
+                      <div class="w-100 align-self-center">
+                        <a href="#" class="h5 text-decoration-none">Nathsa Febrinska</a>
+                        <div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 3px">
+                          <div class="progress-bar" style="width: 25%"></div>
+                        </div>
+                      </div>
+                      <a href="#" class="align-self-center mx-2"><i class="fa-solid fa-chevron-right "></i></a>
+                      <hr>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <img src="https://i1.rgstatic.net/ii/profile.image/722866735681536-1549356268136_Q512/Maxime-Auchlin.jpg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" alt="">
+                      <div class="w-100 align-self-center">
+                        <a href="#" class="h5 text-decoration-none">Ahmad Rusmana</a>
+                        <div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 3px">
+                          <div class="progress-bar" style="width: 25%"></div>
+                        </div>
+                      </div>
+                      <a href="#" class="align-self-center mx-2"><i class="fa-solid fa-chevron-right "></i></a>
+                      <hr>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <img src="https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" alt="">
+                      <div class="w-100 align-self-center">
+                        <a href="#" class="h5 text-decoration-none">Muhammad Zakaria</a>
+                        <div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 3px">
+                          <div class="progress-bar" style="width: 25%"></div>
+                        </div>
+                      </div>
+                      <a href="#" class="align-self-center mx-2"><i class="fa-solid fa-chevron-right "></i></a>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>
 </div>
 {% endblock content %}
 {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@4.2.7/build/index.umd.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script> -->
 <script>
-    fetch('https://unpkg.com/us-atlas/states-10m.json').then((r) => r.json()).then((us) => {
-  const nation = ChartGeo.topojson.feature(us, us.objects.nation).features[0];
-  const states = ChartGeo.topojson.feature(us, us.objects.states).features;
-
-  const chart = new Chart(document.getElementById("canvas").getContext("2d"), {
-    type: 'choropleth',
-    data: {
-      labels: states.map((d) => d.properties.name),
-      datasets: [{
-        label: 'States',
-        outline: nation,
-        data: states.map((d) => ({feature: d, value: Math.random() * 10})),
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        },
-      },
-      scales: {
-        projection: {
-          axis: 'x',
-          projection: 'albersUsa'  
-        },
-        color: {
-          axis: 'x',
-          quantize: 5,
-          legend: {
-            position: 'bottom-right',
-            align: 'bottom'
-          },
-        }
-      },
-    }
+  $(document).ready(function() {
+      $('#table').DataTable();
   });
-});
+</script>
+<script>
+  // Sample data for 2 weeks (14 days)
+  const data = {
+      labels: Array.from({ length: 14 }, (_, i) => (i + 1).toString()), // Labels for 14 days
+      datasets: [
+          {
+              label: 'Pengeluaran',
+              borderColor: '#e74c3c',
+              data: [500, 800, 600, 1000, 700, 1200, 900, 1500, 1100, 1300, 500, 400, 300, 500],
+              fill: false,
+              cubicInterpolationMode: 'monotone', // Smoother curve
+          },
+          {
+              label: 'Pemasukan',
+              borderColor: '#2ecc71',
+              data: [1000, 1200, 900, 1500, 1100, 1300, 500, 400, 300, 500, 400, 100, 1200, 900],
+              fill: false,
+              cubicInterpolationMode: 'monotone', // Smoother curve
+          },
+          {
+              label: 'Pendapatan',
+              borderColor: '#3498db',
+              data: [500, 400, 300, 500, 400, 100, 1200, 900, 1500, 1100, 1300, 500, 400, 300],
+              fill: false,
+              cubicInterpolationMode: 'monotone', // Smoother curve
+          },
+      ],
+  };
+
+  // Chart configuration
+  const config = {
+      type: 'line',
+      data: data,
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+              x: {
+                  display: true,
+                  title: {
+                      display: true,
+                      text: 'Days',
+                  },
+              },
+              y: {
+                  display: true,
+                  title: {
+                      display: true,
+                      text: 'Amount',
+                  },
+              },
+          },
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'top',
+              },
+          },
+          elements: {
+              point: {
+                  radius: 0, // Hide data points
+              },
+          },
+          scales: {
+              x: {
+                  grid: {
+                      display: false, // Remove the x-axis grid lines
+                  },
+              },
+              y: {
+                  grid: {
+                      display: false, // Remove the y-axis grid lines
+                  },
+              },
+          },
+      },
+  };
+
+  // Create the chart
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, config);
+</script>
+<script>
+  // Sample data
+  const dataPie = {
+    labels: ['Kuota', 'Peserta'],
+    datasets: [{
+        data: [25, 75], // Adjust values as needed
+        backgroundColor: ['#3498db', '#e74c3c'],
+        hoverOffset: 4,
+    }],
+  };
+
+  // Chart configuration
+  const configPie = {
+      type: 'doughnut',
+      data: dataPie,
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '80%', // Adjust the cutout size to create a donut chart
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'top',
+              },
+          },
+      },
+  };
+
+  // Create the chart
+  const ctxpie = document.getElementById('PieChart').getContext('2d');
+  const myChartPie = new Chart(ctxpie, configPie);
+
+  const centerText = '25/75';
+  const centerX = myChart.canvas.width / 2;
+  const centerY = myChart.canvas.height / 2;
+
+  ctxpie.textAlign = 'center';
+  ctxpie.textBaseline = 'middle';
+  ctxpie.font = '18px Arial';
+  ctxpie.fillStyle = '#333';
+  ctxpie.fillText(centerText, centerX, centerY);
 </script>
 {% endblock script %}
