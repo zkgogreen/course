@@ -195,12 +195,15 @@ class Report(models.Model):
         return "{}.{}".format(self.jenis, self.user)
     
 class Earn(models.Model):
-    user_teacher = models.ForeignKey(user_root,blank=True, null=True, on_delete=models.CASCADE, related_name="pendapatan_user")
+    mentor      = models.ForeignKey(user_root,blank=True, null=True, on_delete=models.CASCADE, related_name="pendapatan_mentor")
+    user        = models.ForeignKey(user_root,blank=True, null=True, on_delete=models.CASCADE, related_name="pendapatan_user")
+    room        = models.ForeignKey(LevelAkun,blank=True, null=True, on_delete=models.CASCADE, related_name="room")
+    pengeluaran = models.IntegerField(default=0)
+    pemasukan   = models.IntegerField(default=0)
     teacher     = models.IntegerField(default=0)
     owner       = models.IntegerField(default=0)
     developer   = models.IntegerField(default=0)
-    room        = models.ForeignKey(LevelAkun,blank=True, null=True, on_delete=models.CASCADE, related_name="pendapatan_user")
-    tgl         = models.DateField(auto_now_add=True)
+    tgl         = models.DateField(auto_now_add=False)
     
     def __str__(self):
-        return "{}.{}".format(self.user_teacher, self.tgl)
+        return "{}.{}".format(self.mentor, self.tgl)

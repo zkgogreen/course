@@ -1,11 +1,30 @@
 from django.shortcuts import redirect
-from owner.models import LevelAkun, Level, Kategori, Master, Setting
+from owner.models import LevelAkun, Level, Kategori, Master, Setting, Earn
 from teacher.models import Kelas, Bab, Pelajaran, Questions, Room, Schadule
 from user.models import Users, UserBab, UserCourse, UserLatihan, UserLesson, UserMeeting, UserSchadule
 from django.contrib.auth.models import User as user_root
 
 import datetime
 x = datetime.datetime.now()
+import random
+from datetime import datetime, timedelta
+
+def random_date(start_date, end_date):
+    # Convert input strings to datetime objects
+    start_date = datetime.strptime(start_date, "%Y-%m-%d")
+    end_date = datetime.strptime(end_date, "%Y-%m-%d")
+
+    # Calculate the range in days
+    date_range = end_date - start_date
+
+    # Generate a random number of days within the range
+    random_days = random.randint(0, date_range.days)
+
+    # Create a random date by adding the random number of days to the start date
+    random_date_result = start_date + timedelta(days=random_days)
+
+    return random_date_result
+
 
 def home(request):
     return redirect("user:index")
@@ -233,22 +252,64 @@ def begin(request):
     mymentor4 = Users.objects.create(user=mentor_4)
     mymentor5 = Users.objects.create(user=mentor_5)
 
-    usermeeting_1 = UserMeeting.objects.create(mentor= mentor_1,user=user_1, accountlevel=levelakun3, end=x.month+levelakun3.duration, meetremain=levelakun3.meeting, purchased=True)
-    usermeeting_2 = UserMeeting.objects.create(mentor= mentor_2,user=user_2, accountlevel=levelakun2, end=x.month+levelakun2.duration, meetremain=levelakun2.meeting, purchased=True)
-    usermeeting_3 = UserMeeting.objects.create(mentor= mentor_3,user=user_3, accountlevel=levelakun3, end=x.month+levelakun3.duration, meetremain=levelakun3.meeting, purchased=True)
-    usermeeting_4 = UserMeeting.objects.create(mentor= mentor_4,user=user_4, accountlevel=levelakun2, end=x.month+levelakun2.duration, meetremain=levelakun2.meeting, purchased=True)
-    usermeeting_5 = UserMeeting.objects.create(mentor= mentor_5,user=user_5, accountlevel=levelakun3, end=x.month+levelakun3.duration, meetremain=levelakun3.meeting, purchased=True)
-    usermeeting_6 = UserMeeting.objects.create(mentor= mentor_1,user=user_1, accountlevel=levelakun2, end=x.month+levelakun2.duration, meetremain=levelakun2.meeting, purchased=True)
-    usermeeting_7 = UserMeeting.objects.create(mentor= mentor_2,user=user_2, accountlevel=levelakun3, end=x.month+levelakun3.duration, meetremain=levelakun3.meeting, purchased=True)
-    usermeeting_8 = UserMeeting.objects.create(mentor= mentor_3,user=user_3, accountlevel=levelakun2, end=x.month+levelakun2.duration, meetremain=levelakun3.meeting, purchased=True)
-    usermeeting_9 = UserMeeting.objects.create(mentor= mentor_4,user=user_4, accountlevel=levelakun3, end=x.month+levelakun3.duration, meetremain=levelakun2.meeting, purchased=True)
-    usermeeting_10 = UserMeeting.objects.create(mentor= mentor_5,user=user_5, accountlevel=levelakun2, end=x.month+levelakun2.duration, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_1 = UserMeeting.objects.create( mentor= mentor_1, user=user_1,accountlevel=levelakun3,end=x,meetremain=levelakun3.meeting,purchased=True)
+    usermeeting_2 = UserMeeting.objects.create(mentor= mentor_2,user=user_1, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_3 = UserMeeting.objects.create(mentor= mentor_3,user=user_1, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_4 = UserMeeting.objects.create(mentor= mentor_4,user=user_1, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_5 = UserMeeting.objects.create(mentor= mentor_5,user=user_1, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_6 = UserMeeting.objects.create(mentor= mentor_1,user=user_2, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_7 = UserMeeting.objects.create(mentor= mentor_2,user=user_2, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_8 = UserMeeting.objects.create(mentor= mentor_3,user=user_2, accountlevel=levelakun2, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_9 = UserMeeting.objects.create(mentor= mentor_4,user=user_2, accountlevel=levelakun3, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_10 = UserMeeting.objects.create(mentor= mentor_5,user=user_2, accountlevel=levelakun2, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_11 = UserMeeting.objects.create(mentor= mentor_1,user=user_3, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_12 = UserMeeting.objects.create(mentor= mentor_2,user=user_3, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_13 = UserMeeting.objects.create(mentor= mentor_3,user=user_3, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_14 = UserMeeting.objects.create(mentor= mentor_4,user=user_3, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_15 = UserMeeting.objects.create(mentor= mentor_5,user=user_3, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_16 = UserMeeting.objects.create(mentor= mentor_1,user=user_4, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_17 = UserMeeting.objects.create(mentor= mentor_2,user=user_4, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_18 = UserMeeting.objects.create(mentor= mentor_3,user=user_4, accountlevel=levelakun2, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_19 = UserMeeting.objects.create(mentor= mentor_4,user=user_4, accountlevel=levelakun3, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_20 = UserMeeting.objects.create(mentor= mentor_5,user=user_4, accountlevel=levelakun2, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_21 = UserMeeting.objects.create(mentor= mentor_1,user=user_5, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_22 = UserMeeting.objects.create(mentor= mentor_2,user=user_5, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_23 = UserMeeting.objects.create(mentor= mentor_3,user=user_5, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
+    usermeeting_24 = UserMeeting.objects.create(mentor= mentor_4,user=user_5, accountlevel=levelakun2, end=x, meetremain=levelakun2.meeting, purchased=True)
+    usermeeting_25 = UserMeeting.objects.create(mentor= mentor_5,user=user_5, accountlevel=levelakun3, end=x, meetremain=levelakun3.meeting, purchased=True)
 
-    room_1 = Room.objects.create(mentor=mentor_1, bahasa=1, time=1, mulai=1, level=levelakun2)
-    room_2 = Room.objects.create(mentor=mentor_2, bahasa=1, time=1, mulai=1, level=levelakun3)
-    room_3 = Room.objects.create(mentor=mentor_3, bahasa=1, time=1, mulai=1, level=levelakun2)
-    room_4 = Room.objects.create(mentor=mentor_4, bahasa=1, time=1, mulai=1, level=levelakun3)
-    room_5 = Room.objects.create(mentor=mentor_5, bahasa=1, time=1, mulai=1, level=levelakun2)
+    Earn.objects.create(user=usermeeting_1.user ,mentor=usermeeting_1.mentor, room=usermeeting_1.accountlevel,pemasukan=usermeeting_1.accountlevel.discount,pengeluaran=usermeeting_1.accountlevel.discount * .82, teacher=usermeeting_1.accountlevel.discount * .75, owner=usermeeting_1.accountlevel.discount * .18, developer=usermeeting_1.accountlevel.discount * .07, tgl=random_date("2023-01-01", "2023-02-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_2.user ,mentor=usermeeting_2.mentor, room=usermeeting_2.accountlevel,pemasukan=usermeeting_2.accountlevel.discount,pengeluaran=usermeeting_2.accountlevel.discount * .82, teacher=usermeeting_2.accountlevel.discount * .75, owner=usermeeting_2.accountlevel.discount * .18, developer=usermeeting_2.accountlevel.discount * .07, tgl=random_date("2023-02-01", "2023-03-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_3.user ,mentor=usermeeting_3.mentor, room=usermeeting_3.accountlevel,pemasukan=usermeeting_3.accountlevel.discount,pengeluaran=usermeeting_3.accountlevel.discount * .82, teacher=usermeeting_3.accountlevel.discount * .75, owner=usermeeting_3.accountlevel.discount * .18, developer=usermeeting_3.accountlevel.discount * .07, tgl=random_date("2023-03-01", "2023-04-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_4.user ,mentor=usermeeting_4.mentor, room=usermeeting_4.accountlevel,pemasukan=usermeeting_4.accountlevel.discount,pengeluaran=usermeeting_4.accountlevel.discount * .82, teacher=usermeeting_4.accountlevel.discount * .75, owner=usermeeting_4.accountlevel.discount * .18, developer=usermeeting_4.accountlevel.discount * .07, tgl=random_date("2023-04-01", "2023-05-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_4.user ,mentor=usermeeting_4.mentor, room=usermeeting_4.accountlevel,pemasukan=usermeeting_4.accountlevel.discount,pengeluaran=usermeeting_4.accountlevel.discount * .82, teacher=usermeeting_4.accountlevel.discount * .75, owner=usermeeting_4.accountlevel.discount * .18, developer=usermeeting_4.accountlevel.discount * .07, tgl=random_date("2023-05-01", "2023-06-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_5.user ,mentor=usermeeting_5.mentor, room=usermeeting_5.accountlevel,pemasukan=usermeeting_5.accountlevel.discount,pengeluaran=usermeeting_5.accountlevel.discount * .82, teacher=usermeeting_5.accountlevel.discount * .75, owner=usermeeting_5.accountlevel.discount * .18, developer=usermeeting_5.accountlevel.discount * .07, tgl=random_date("2023-06-01", "2023-07-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_6.user ,mentor=usermeeting_6.mentor, room=usermeeting_6.accountlevel,pemasukan=usermeeting_6.accountlevel.discount,pengeluaran=usermeeting_6.accountlevel.discount * .82, teacher=usermeeting_6.accountlevel.discount * .75, owner=usermeeting_6.accountlevel.discount * .18, developer=usermeeting_6.accountlevel.discount * .07, tgl=random_date("2023-07-01", "2023-08-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_7.user ,mentor=usermeeting_7.mentor, room=usermeeting_7.accountlevel,pemasukan=usermeeting_7.accountlevel.discount,pengeluaran=usermeeting_7.accountlevel.discount * .82, teacher=usermeeting_7.accountlevel.discount * .75, owner=usermeeting_7.accountlevel.discount * .18, developer=usermeeting_7.accountlevel.discount * .07, tgl=random_date("2023-08-01", "2023-09-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_8.user ,mentor=usermeeting_8.mentor, room=usermeeting_8.accountlevel,pemasukan=usermeeting_8.accountlevel.discount,pengeluaran=usermeeting_8.accountlevel.discount * .82, teacher=usermeeting_8.accountlevel.discount * .75, owner=usermeeting_8.accountlevel.discount * .18, developer=usermeeting_8.accountlevel.discount * .07, tgl=random_date("2023-09-01", "2023-10-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_9.user ,mentor=usermeeting_9.mentor, room=usermeeting_9.accountlevel,pemasukan=usermeeting_9.accountlevel.discount,pengeluaran=usermeeting_9.accountlevel.discount * .82, teacher=usermeeting_9.accountlevel.discount * .75, owner=usermeeting_9.accountlevel.discount * .18, developer=usermeeting_9.accountlevel.discount * .07, tgl=random_date("2023-10-01", "2023-11-01").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_10.user ,mentor=usermeeting_10.mentor, room=usermeeting_10.accountlevel,pemasukan=usermeeting_10.accountlevel.discount,pengeluaran=usermeeting_10.accountlevel.discount * .82, teacher=usermeeting_10.accountlevel.discount * .75, owner=usermeeting_10.accountlevel.discount * .18, developer=usermeeting_10.accountlevel.discount * .07, tgl=random_date("2023-01-01", "2023-02-27").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_11.user ,mentor=usermeeting_11.mentor, room=usermeeting_11.accountlevel,pemasukan=usermeeting_11.accountlevel.discount,pengeluaran=usermeeting_11.accountlevel.discount * .82, teacher=usermeeting_11.accountlevel.discount * .75, owner=usermeeting_11.accountlevel.discount * .18, developer=usermeeting_11.accountlevel.discount * .07, tgl=random_date("2023-01-30", "2023-03-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_12.user ,mentor=usermeeting_12.mentor, room=usermeeting_12.accountlevel,pemasukan=usermeeting_12.accountlevel.discount,pengeluaran=usermeeting_12.accountlevel.discount * .82, teacher=usermeeting_12.accountlevel.discount * .75, owner=usermeeting_12.accountlevel.discount * .18, developer=usermeeting_12.accountlevel.discount * .07, tgl=random_date("2023-02-27", "2023-04-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_13.user ,mentor=usermeeting_13.mentor, room=usermeeting_13.accountlevel,pemasukan=usermeeting_13.accountlevel.discount,pengeluaran=usermeeting_13.accountlevel.discount * .82, teacher=usermeeting_13.accountlevel.discount * .75, owner=usermeeting_13.accountlevel.discount * .18, developer=usermeeting_13.accountlevel.discount * .07, tgl=random_date("2023-03-30", "2023-05-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_14.user ,mentor=usermeeting_14.mentor, room=usermeeting_14.accountlevel,pemasukan=usermeeting_14.accountlevel.discount,pengeluaran=usermeeting_14.accountlevel.discount * .82, teacher=usermeeting_14.accountlevel.discount * .75, owner=usermeeting_14.accountlevel.discount * .18, developer=usermeeting_14.accountlevel.discount * .07, tgl=random_date("2023-04-30", "2023-06-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_15.user ,mentor=usermeeting_15.mentor, room=usermeeting_15.accountlevel,pemasukan=usermeeting_15.accountlevel.discount,pengeluaran=usermeeting_15.accountlevel.discount * .82, teacher=usermeeting_15.accountlevel.discount * .75, owner=usermeeting_15.accountlevel.discount * .18, developer=usermeeting_15.accountlevel.discount * .07, tgl=random_date("2023-05-30", "2023-07-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_16.user ,mentor=usermeeting_16.mentor, room=usermeeting_16.accountlevel,pemasukan=usermeeting_16.accountlevel.discount,pengeluaran=usermeeting_16.accountlevel.discount * .82, teacher=usermeeting_16.accountlevel.discount * .75, owner=usermeeting_16.accountlevel.discount * .18, developer=usermeeting_16.accountlevel.discount * .07, tgl=random_date("2023-06-30", "2023-08-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_17.user ,mentor=usermeeting_17.mentor, room=usermeeting_17.accountlevel,pemasukan=usermeeting_17.accountlevel.discount,pengeluaran=usermeeting_17.accountlevel.discount * .82, teacher=usermeeting_17.accountlevel.discount * .75, owner=usermeeting_17.accountlevel.discount * .18, developer=usermeeting_17.accountlevel.discount * .07, tgl=random_date("2023-07-30", "2023-09-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_18.user ,mentor=usermeeting_18.mentor, room=usermeeting_18.accountlevel,pemasukan=usermeeting_18.accountlevel.discount,pengeluaran=usermeeting_18.accountlevel.discount * .82, teacher=usermeeting_18.accountlevel.discount * .75, owner=usermeeting_18.accountlevel.discount * .18, developer=usermeeting_18.accountlevel.discount * .07, tgl=random_date("2023-08-30", "2023-10-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_19.user ,mentor=usermeeting_19.mentor, room=usermeeting_19.accountlevel,pemasukan=usermeeting_19.accountlevel.discount,pengeluaran=usermeeting_19.accountlevel.discount * .82, teacher=usermeeting_19.accountlevel.discount * .75, owner=usermeeting_19.accountlevel.discount * .18, developer=usermeeting_19.accountlevel.discount * .07, tgl=random_date("2023-09-30", "2023-11-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_20.user ,mentor=usermeeting_20.mentor, room=usermeeting_20.accountlevel,pemasukan=usermeeting_20.accountlevel.discount,pengeluaran=usermeeting_20.accountlevel.discount * .82, teacher=usermeeting_20.accountlevel.discount * .75, owner=usermeeting_20.accountlevel.discount * .18, developer=usermeeting_20.accountlevel.discount * .07, tgl=random_date("2023-10-30", "2023-12-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_21.user ,mentor=usermeeting_21.mentor, room=usermeeting_21.accountlevel,pemasukan=usermeeting_21.accountlevel.discount,pengeluaran=usermeeting_21.accountlevel.discount * .82, teacher=usermeeting_21.accountlevel.discount * .75, owner=usermeeting_21.accountlevel.discount * .18, developer=usermeeting_21.accountlevel.discount * .07, tgl=random_date("2023-01-30", "2023-02-27").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_22.user ,mentor=usermeeting_22.mentor, room=usermeeting_22.accountlevel,pemasukan=usermeeting_22.accountlevel.discount,pengeluaran=usermeeting_22.accountlevel.discount * .82, teacher=usermeeting_22.accountlevel.discount * .75, owner=usermeeting_22.accountlevel.discount * .18, developer=usermeeting_22.accountlevel.discount * .07, tgl=random_date("2023-01-30", "2023-03-27").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_23.user ,mentor=usermeeting_23.mentor, room=usermeeting_23.accountlevel,pemasukan=usermeeting_23.accountlevel.discount,pengeluaran=usermeeting_23.accountlevel.discount * .82, teacher=usermeeting_23.accountlevel.discount * .75, owner=usermeeting_23.accountlevel.discount * .18, developer=usermeeting_23.accountlevel.discount * .07, tgl=random_date("2023-02-27", "2023-04-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_24.user ,mentor=usermeeting_24.mentor, room=usermeeting_24.accountlevel,pemasukan=usermeeting_24.accountlevel.discount,pengeluaran=usermeeting_24.accountlevel.discount * .82, teacher=usermeeting_24.accountlevel.discount * .75, owner=usermeeting_24.accountlevel.discount * .18, developer=usermeeting_24.accountlevel.discount * .07, tgl=random_date("2023-03-30", "2023-05-30").strftime("%Y-%m-%d"))
+    Earn.objects.create(user=usermeeting_25.user ,mentor=usermeeting_25.mentor, room=usermeeting_25.accountlevel,pemasukan=usermeeting_25.accountlevel.discount,pengeluaran=usermeeting_25.accountlevel.discount * .82, teacher=usermeeting_25.accountlevel.discount * .75, owner=usermeeting_25.accountlevel.discount * .18, developer=usermeeting_25.accountlevel.discount * .07, tgl=random_date("2023-04-30", "2023-06-30").strftime("%Y-%m-%d"))
+
+    room_1 = Room.objects.create(mentor=mentor_1, bahasa=1, time=1, mulai=x, level=levelakun2)
+    room_2 = Room.objects.create(mentor=mentor_2, bahasa=1, time=1, mulai=x, level=levelakun3)
+    room_3 = Room.objects.create(mentor=mentor_3, bahasa=1, time=1, mulai=x, level=levelakun2)
+    room_4 = Room.objects.create(mentor=mentor_4, bahasa=1, time=1, mulai=x, level=levelakun3)
+    room_5 = Room.objects.create(mentor=mentor_5, bahasa=1, time=1, mulai=x, level=levelakun2)
 
     room_1_sch_1 = Schadule.objects.create(room=room_1, mentor=mentor_1, level=levelakun2, tanggal=x)
     room_1_sch_2 = Schadule.objects.create(room=room_1, mentor=mentor_1, level=levelakun2, tanggal=x)
@@ -457,5 +518,6 @@ def delall(request):
     UserCourse.objects.all().delete()
     UserLatihan.objects.all().delete()
     UserLesson.objects.all().delete()
+    user_root.objects.all().delete()
     
     return redirect("home:home")

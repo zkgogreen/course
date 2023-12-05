@@ -23,7 +23,7 @@
                     <div class="d-flex justify-content-between">
                       <div class="align-self-center">
                         <h4 class="fw-semibold">Pendapatan</h4>
-                        <h6 class="text-success">Rp. 3.200.000</h6>
+                        <h6 class="text-success">Rp. {{earning}}</h6>
                       </div>
                       <div class="align-self-center">
                         <i class="fa-solid fa-arrow-up-long text-success"></i>
@@ -156,26 +156,26 @@
 <script>
   // Sample data for 2 weeks (14 days)
   const data = {
-      labels: Array.from({ length: 14 }, (_, i) => (i + 1).toString()), // Labels for 14 days
+      labels: Array.from({ length: 12 }, (_, i) => (i + 1).toString()), // Labels for 14 days
       datasets: [
           {
               label: 'Pengeluaran',
               borderColor: '#e74c3c',
-              data: [500, 800, 600, 1000, 700, 1200, 900, 1500, 1100, 1300, 500, 400, 300, 500],
+              data:  [{% for i in pengeluaran %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
               fill: false,
               cubicInterpolationMode: 'monotone', // Smoother curve
           },
           {
               label: 'Pemasukan',
               borderColor: '#2ecc71',
-              data: [1000, 1200, 900, 1500, 1100, 1300, 500, 400, 300, 500, 400, 100, 1200, 900],
+              data:  [{% for i in kotor %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
               fill: false,
               cubicInterpolationMode: 'monotone', // Smoother curve
           },
           {
               label: 'Pendapatan',
               borderColor: '#3498db',
-              data: [500, 400, 300, 500, 400, 100, 1200, 900, 1500, 1100, 1300, 500, 400, 300],
+              data:  [{% for i in bersih %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
               fill: false,
               cubicInterpolationMode: 'monotone', // Smoother curve
           },
