@@ -301,8 +301,8 @@ class Withdrow(models.Model):
     bank        = models.CharField(max_length=30)
     no_bank     = models.CharField(max_length=18)
     penerima    = models.CharField(max_length=50)
-    tgl         = models.DateField(auto_now_add=True)
+    tgl         = models.DateField(auto_now_add=False)
     approve     = models.BooleanField(default=False)
     
     def __str__(self):
-        return "{}.{}".format(self.T_name, self.jumlah)
+        return "{}.{}".format(self.user, self.jumlah)

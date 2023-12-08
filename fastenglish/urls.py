@@ -11,7 +11,7 @@ urlpatterns = [
     path('user/', include(('user.urls', 'user'), namespace='user')),
     path('teacher/', include(('teacher.urls', 'teacher'), namespace='teacher')),
     path('owner/', include(('owner.urls', 'owner'), namespace='owner')),
-    path("begin/", views.begin),
+    path("begin/", views.begin, name='begin'),
     path("delete/", views.delall),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

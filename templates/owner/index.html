@@ -155,32 +155,7 @@
 </script>
 <script>
   // Sample data for 2 weeks (14 days)
-  const data = {
-      labels: Array.from({ length: 12 }, (_, i) => (i + 1).toString()), // Labels for 14 days
-      datasets: [
-          {
-              label: 'Pengeluaran',
-              borderColor: '#e74c3c',
-              data:  [{% for i in pengeluaran %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-              fill: false,
-              cubicInterpolationMode: 'monotone', // Smoother curve
-          },
-          {
-              label: 'Pemasukan',
-              borderColor: '#2ecc71',
-              data:  [{% for i in kotor %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-              fill: false,
-              cubicInterpolationMode: 'monotone', // Smoother curve
-          },
-          {
-              label: 'Pendapatan',
-              borderColor: '#3498db',
-              data:  [{% for i in bersih %}'{{ i.total_earning }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-              fill: false,
-              cubicInterpolationMode: 'monotone', // Smoother curve
-          },
-      ],
-  };
+  const data = {{ pendapatan | safe}}
 
   // Chart configuration
   const config = {
@@ -237,14 +212,7 @@
 </script>
 <script>
   // Sample data
-  const dataPie = {
-    labels: ['Regular', 'Semi-Private','Private'],
-    datasets: [{
-        data: [79, 26, 42],
-        backgroundColor: ['#3498db', '#e74c3c', '#3399ff'],
-        hoverOffset: 4,
-    }],
-  };
+  const dataPie = {{ pie|safe }};
 
   // Chart configuration
   const configPie = {
